@@ -5,16 +5,19 @@ Created on Sun Feb 12 18:02:49 2023
 @author: Hannah
 """
 
-from abc import ABCMeta, abstractmethod
-import numpy as np
+from abc import ABCMeta
+import random
 
 class Creature(metaclass=ABCMeta):
-    
-  x = 2
-        
-class Bear(Creature):
+    def __init__(self): #initiate creature
 
+    def moving(self):
+        move = random.randint(-1, 1)
+    return move
+
+class Bear(Creature):
+    pass
  
         
 class Fish(Creature):
-    
+    pass
