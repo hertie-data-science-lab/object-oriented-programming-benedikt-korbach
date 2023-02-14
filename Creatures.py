@@ -10,7 +10,7 @@ import numpy as np
 
 class Creature(metaclass=ABCMeta):
     
-  
+  x = 2
         
 class Bear(Creature):
 
