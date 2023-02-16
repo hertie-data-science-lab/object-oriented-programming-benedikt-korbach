@@ -9,15 +9,16 @@ from abc import ABCMeta
 import random
 
 class Creature(metaclass=ABCMeta):
-    def __init__(self): #initiate creature
 
-    def moving(self):
-        move = random.randint(-1, 1)
-    return move
+    def __init__(self, name, old_position = 0, new_position = 0): #initiate creature
+        self.name = name
+        self.old_position = old_position
+        self.new_position = new_position
 
 class Bear(Creature):
-    pass
- 
+    def __init__(self, name = "Bear"):
+        Creature.__init__(self, name, old_position = 0, new_position = 0)
         
 class Fish(Creature):
-    pass
+    def __init__(self, name = "Fish"):
+        Creature.__init__(self, name, old_position = 0, new_position = 0)
