@@ -11,6 +11,7 @@ import random
 
 class River:
     
+    #Initialize the river's attributes
     def __init__(self, n_room, ecosystem = [], max_periods = 5, period = 0):
         self.n_room = n_room
         self.ecosystem = ecosystem
@@ -55,5 +56,6 @@ class River:
         print("Number of positions:", self.n_room, "\n")
         print("Ecosystem status:", self.ecosystem, "\n")
         print("===================")
+
 
 
