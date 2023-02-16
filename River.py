@@ -19,6 +19,15 @@ class River:
     def initialize(self):
         for i in range(self.n_room):
             self.ecosystem.append(random.choice([Bear(), Fish(), None]))
+
+        index = 0
+
+        for i in self.ecosystem:
+            if isinstance(i, Fish) or isinstance(i, Bear):
+                i.old_position = index
+                i.new_position = index
+            index += 1
+
         return self.ecosystem
 
     def next_time_step(self):
@@ -27,12 +36,18 @@ class River:
 
         index = 0
         for i in self.ecosystem:
-            if isinstance(i, Fish):
-                i.old_position = index
-                print("Insert Fish move action here")
-            if isinstance(i, Bear):
-                print("Insert Bear move action here")
+            if isinstance(i, Fish) or isinstance(i, Bear):
+                print(i.old_position)
+                i.old_position = i.new_position
+                i.new_position = i.old_position + i.move()
+                if i.new_position <0 or i.new_position > self.n_room:
+                    i.new_position = i.old_position
+                print(i.new_position)
+
             index += 1
+
+
+
         print("New Ecosystem status:", self.ecosystem, "\n")
 
     def display(self):

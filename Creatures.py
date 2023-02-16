@@ -14,7 +14,8 @@ class Creature(metaclass=ABCMeta):
         self.name = name
         self.old_position = old_position
         self.new_position = new_position
-
+    def move(self):
+        return random.randint(-1, 1)
 class Bear(Creature):
     def __init__(self, name = "Bear"):
         Creature.__init__(self, name, old_position = 0, new_position = 0)
