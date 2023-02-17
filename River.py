@@ -79,25 +79,22 @@ class River:
                     if isinstance(animal, Bear):
                         animal.final_position = animal.new_position
 
-        self.ecosystem = seq
-        for i in tuple_list:
-
-
-
-
-
+        #final_ecosystem = [] * self.n_room
+        #for i in final_ecosystem:
+        #    for j in tuple_list:
+        #        if j[0] == i:
+        #            final_ecosystem[i] = interaction_list
+        #        else
+        #            final_ecosystem[i] = None
+        #print("Ecosystem at end of round", final_ecosystem)
 
 
         #Identify after the creature's movement which are the null positions in the river
-        null_positions = []
-        for i in range(self.n_room):
-            if self.ecosystem[i] is None:
-                null_positions.append(i)
-        print("This are the null positions",null_positions)
-
-        #Iteraction between creatures
-
-
+        #null_positions = []
+        #for i in range(self.n_room):
+        #    if self.ecosystem[i] is None:
+        #        null_positions.append(i)
+        #print("This are the null positions", null_positions)
 
 
         print("New Ecosystem status:", self.ecosystem, "\n")
