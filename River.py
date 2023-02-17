@@ -17,6 +17,8 @@ class River:
         self.ecosystem = ecosystem
         self.max_periods = max_periods
         self.period = period
+
+    #Method for starting the river ecosystem
     def initialize(self):
         for i in range(self.n_room):
             self.ecosystem.append(random.choice([Bear(), Fish(), None]))
@@ -31,6 +33,7 @@ class River:
 
         return self.ecosystem
 
+    #Method for evaluating interactions between creatures in the next round
     def next_time_step(self):
         self.period = self.period + 1
         print("Current period:", self.period)
@@ -41,11 +44,20 @@ class River:
                 print(i.old_position)
                 i.old_position = i.new_position
                 i.new_position = i.old_position + i.move()
-                if i.new_position <0 or i.new_position > self.n_room:
+                if i.new_position < 0 or i.new_position > self.n_room:
                     i.new_position = i.old_position
                 print(i.new_position)
 
             index += 1
+        #Identify after the creature's movement which are the null positions in the river
+        null_positions = []
+        for i in range(self.n_room):
+            if self.ecosystem[i] is None:
+                null_positions.append(i)
+        print("This are the null positions",null_positions)
+
+        #Iteraction between creatures
+
 
 
 
