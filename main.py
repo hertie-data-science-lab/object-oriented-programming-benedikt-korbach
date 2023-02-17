@@ -7,7 +7,7 @@ Created on Sun Feb 12 18:05:41 2023
 
 from River import River
 
-river = River(5)
+river = River(10)
 river.initialize()
 river.display()
 
