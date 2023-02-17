@@ -27,17 +27,13 @@ class River:
         for i in self.ecosystem:
             if isinstance(i, Fish) or isinstance(i, Bear):
                 i.old_position = index
-<<<<<<< Updated upstream
-                i.new_position = index
-=======
                 i.ant_position = index
                 i.final_position = index
->>>>>>> Stashed changes
+
             index += 1
 
         return self.ecosystem
 
-<<<<<<< Updated upstream
     def next_time_step(self):
         self.period = self.period + 1
         print("Current period:", self.period)
@@ -53,7 +49,7 @@ class River:
                 print(i.new_position)
 
             index += 1
-=======
+
     # Make creatures move and save result in anticipated position attribute of each animal
     def anticipated_moves(self):
         for i in self.ecosystem:
@@ -113,8 +109,6 @@ class River:
         print("This are the null positions",null_positions)
 
         #Iteraction between creatures
-
->>>>>>> Stashed changes
 
 
 
