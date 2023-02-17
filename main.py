@@ -12,7 +12,3 @@ river.initialize()
 river.display()
 
 river.next_time_step()
-river.next_time_step()
-river.next_time_step()
-river.next_time_step()
-river.next_time_step()
