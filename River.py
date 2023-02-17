@@ -90,14 +90,18 @@ class River:
                     for animal in interaction_list:
                         if isinstance(animal, Fish):
                             animal.ant_position = None
+                            print("Animal: ", animal)
+                            print("Old position: ", animal.old_position)
+                            print("Ant position: ", animal.ant_position)
                         if isinstance(animal, Bear):
                             animal.ant_position = animal.old_position
-                        print("Animal: ", animal)
-                        print("Old position: ", animal.old_position)
-                        print("Ant position: ", animal.ant_position)
+                            print("Animal: ", animal)
+                            print("Old position: ", animal.old_position)
+                            print("Ant position: ", animal.ant_position)
 
             collision_list = []
             index_list = []
+            tuple_list = []
 
             # Find positions of the river where collisions are anticipated
             for i in self.ecosystem:
