@@ -11,11 +11,12 @@ import random
 
 class River:
     
-    def __init__(self, n_room, ecosystem = [], max_periods = 5, period = 0):
+    def __init__(self, n_room, ecosystem = [], period = 0, fish_spawn_counter = 0, bear_spawn_counter = 0):
         self.n_room = n_room
         self.ecosystem = ecosystem
-        self.max_periods = max_periods
         self.period = period
+        self.fish_spawn_counter = fish_spawn_counter
+        self.bear_spawn_counter = bear_spawn_counter
 
     def initialize(self):
         # Randomly assign a bear, a fish or NONE to each position in the river
@@ -68,6 +69,9 @@ class River:
         print("collision_list: ", collision_list)
         print("tuple_list: ", tuple_list, "\n")
 
+        for animal in tuple_list:
+            animal[1].final_position = animal[1].ant_position
+
         while len(collision_list) != 0:
             for animal in tuple_list:
                 animal[1].final_position = animal[1].ant_position
@@ -77,7 +81,8 @@ class River:
                 for t in tuple_list:
                     if t[0] == i:
                         interaction_list.append(t[1])
-                print("interaction_list =", interaction_list)
+                print("Collision at position :", i)
+                print("interaction_list =", interaction_list, "\n")
 
                 # If animals of the same kind collide, set ant position to old position
                 if all(isinstance(animal, type(interaction_list[0])) for animal in interaction_list):
@@ -85,7 +90,11 @@ class River:
                         animal.ant_position = animal.old_position
                         print("Animal: ", animal)
                         print("Old position: ", animal.old_position)
-                        print("Ant position: ", animal.ant_position)
+                        print("Ant position: ", animal.ant_position, "\n")
+                    if isinstance(interaction_list[0], Fish):
+                        self.fish_spawn_counter += 1
+                    else:
+                        self.bear_spawn_counter += 1
 
                 # If animals of different kinds collide, therefore bear and fish, set the ant_position of the fish to NONE
                 else:
@@ -94,11 +103,11 @@ class River:
                             animal.ant_position = None
                             print("Animal: ", animal)
                             print("Old position: ", animal.old_position)
-                            print("Ant position: ", animal.ant_position)
+                            print("Ant position: ", animal.ant_position, "\n")
                         if isinstance(animal, Bear):
                             print("Animal: ", animal)
                             print("Old position: ", animal.old_position)
-                            print("Ant position: ", animal.ant_position)
+                            print("Ant position: ", animal.ant_position, "\n")
 
             collision_list = []
             index_list = []
@@ -118,17 +127,70 @@ class River:
             print("collision_list: ", collision_list)
             print("tuple_list: ", tuple_list, "\n")
 
-    def null_positions(self):
-        #Identify after the creature's movement which are the null positions in the river
-        null_positions = []
+            for animal in tuple_list:
+                animal[1].final_position = animal[1].ant_position
+
+
+    def update_ecosystem(self):
+        print("Old ecosystem status :", self.ecosystem)
+
+        new_ecosystem = [None] * self.n_room
+        print("New ecosystem empty :", new_ecosystem)
+
+        for i in self.ecosystem:
+            if i is not None:
+                if i.final_position is not None:
+                    new_ecosystem[i.final_position] = i
+                i.old_position = i.final_position
+
+        print("New ecosystem populated :", new_ecosystem)
+
+        self.ecosystem = new_ecosystem
+
+        print("New ecosystem status :", self.ecosystem, "\n")
+
+        print("fish_spawn_counter: ", self.fish_spawn_counter)
+        print("bear_spawn_counter: ", self.bear_spawn_counter)
+
+        none_index_list = []
+
         for i in range(self.n_room):
             if self.ecosystem[i] is None:
-                null_positions.append(i)
-        print("This are the null positions",null_positions)
+                none_index_list.append(i)
 
-        #Iteraction between creatures
+        print("none_index_list: ", none_index_list)
 
-        print("New Ecosystem status:", self.ecosystem, "\n")
+        free_none_spots = len(none_index_list)
+
+        print("free_none_spots: ", free_none_spots)
+
+        for i in range(self.fish_spawn_counter):
+            if free_none_spots > 0:
+                index_position = random.choice(none_index_list)
+                self.ecosystem[index_position] = Fish()
+                self.ecosystem[index_position].old_position = index_position
+                self.ecosystem[index_position].ant_position = index_position
+                self.ecosystem[index_position].final_position = index_position
+
+                none_index_list.remove(index_position)
+            free_none_spots -= 1
+
+        for i in range(self.bear_spawn_counter):
+            if free_none_spots > 0:
+                index_position = random.choice(none_index_list)
+                self.ecosystem[index_position] = Bear()
+                self.ecosystem[index_position].old_position = index_position
+                self.ecosystem[index_position].ant_position = index_position
+                self.ecosystem[index_position].final_position = index_position
+
+                none_index_list.remove(index_position)
+            free_none_spots -= 1
+
+        print("New ecosystem status :", self.ecosystem, "\n")
+
+        self.fish_spawn_counter = 0
+        self.bear_spawn_counter = 0
+
 
 
     # Aggragate methods as next_time_step
@@ -137,6 +199,8 @@ class River:
         print("Current period:", self.period, "\n")
         self.anticipated_moves()
         self.collisions()
+        self.update_ecosystem()
+        print("===================", "\n")
 
     def display(self):
         print("===================", "\n")
