@@ -37,6 +37,7 @@ class River:
 
     # Make creatures move and save result in anticipated position attribute of each animal
     def anticipated_moves(self):
+        print("Anticipated moves:", "\n")
         for i in self.ecosystem:
             if isinstance(i, Fish) or isinstance(i, Bear):
                 print("Old position of ", i, " :", i.old_position)
@@ -46,6 +47,7 @@ class River:
                 if i.ant_position < 0 or i.ant_position >= self.n_room:
                     i.ant_position = i.old_position
                 print("Anticipated position of ", i, " :", i.ant_position, "\n")
+        print("===================", "\n")
 
     # Check for anticipated collisions and save final moving results in final_position
     def collisions(self):
@@ -64,7 +66,7 @@ class River:
 
         print("index_list: ", index_list)
         print("collision_list: ", collision_list)
-        print("tuple_list: ", tuple_list)
+        print("tuple_list: ", tuple_list, "\n")
 
         while len(collision_list) != 0:
             for animal in tuple_list:
@@ -80,11 +82,11 @@ class River:
                 # If animals of the same kind collide, set ant position to old position
                 if all(isinstance(animal, type(interaction_list[0])) for animal in interaction_list):
                     for animal in interaction_list:
+                        animal.ant_position = animal.old_position
                         print("Animal: ", animal)
                         print("Old position: ", animal.old_position)
                         print("Ant position: ", animal.ant_position)
 
-                        animal.ant_position = animal.old_position
                 # If animals of different kinds collide, therefore bear and fish, set the ant_position of the fish to NONE
                 else:
                     for animal in interaction_list:
@@ -94,7 +96,6 @@ class River:
                             print("Old position: ", animal.old_position)
                             print("Ant position: ", animal.ant_position)
                         if isinstance(animal, Bear):
-                            animal.ant_position = animal.old_position
                             print("Animal: ", animal)
                             print("Old position: ", animal.old_position)
                             print("Ant position: ", animal.ant_position)
@@ -106,13 +107,16 @@ class River:
             # Find positions of the river where collisions are anticipated
             for i in self.ecosystem:
                 if isinstance(i, Fish) or isinstance(i, Bear):
-                    if i.ant_position in index_list:
-                        if i.ant_position not in collision_list:
-                            collision_list.append(i.ant_position)
+                    if i.ant_position is not None:
+                        if i.ant_position in index_list:
+                            if i.ant_position not in collision_list:
+                                collision_list.append(i.ant_position)
+                    tuple_list.append((i.ant_position, i))
                     index_list.append(i.ant_position)
 
             print("index_list: ", index_list)
             print("collision_list: ", collision_list)
+            print("tuple_list: ", tuple_list, "\n")
 
     def null_positions(self):
         #Identify after the creature's movement which are the null positions in the river
