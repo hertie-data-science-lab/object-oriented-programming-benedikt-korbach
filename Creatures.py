@@ -17,8 +17,11 @@ class Creature(metaclass=ABCMeta):
         self.final_position = final_position
         self.moving_decision = moving_decision
 
+#Define a movement command for the creatures:
     def move(self):
         self.moving_decision = random.randint(-1, 1)
+
+#Applying inheritance:
 class Bear(Creature):
     def __init__(self, name = "Bear"):
         Creature.__init__(self, name, old_position = 0, ant_position = 0, final_position = 0, moving_decision = 0)

@@ -65,9 +65,10 @@ class River:
                 tuple_list.append((i.ant_position, i))
                 index_list.append(i.ant_position)
 
-        print("index_list: ", index_list)
-        print("collision_list: ", collision_list)
-        print("tuple_list: ", tuple_list, "\n")
+        #List to check the steps
+        #print("index_list: ", index_list) #Index list of river positions with bears or fishes
+        #print("collision_list: ", collision_list) #Index list of positions were a collision happened
+        #print("tuple_list: ", tuple_list, "\n") #Tuple with index and type of creature in the ecosystem
 
         for animal in tuple_list:
             animal[1].final_position = animal[1].ant_position
@@ -109,6 +110,7 @@ class River:
                             print("Old position: ", animal.old_position)
                             print("Ant position: ", animal.ant_position, "\n")
 
+            #Reset list
             collision_list = []
             index_list = []
             tuple_list = []
@@ -123,9 +125,10 @@ class River:
                     tuple_list.append((i.ant_position, i))
                     index_list.append(i.ant_position)
 
-            print("index_list: ", index_list)
-            print("collision_list: ", collision_list)
-            print("tuple_list: ", tuple_list, "\n")
+            print("Check ecosystem update: ")
+            print("Index_list: ", index_list)
+            print("Collision_list: ", collision_list)
+            print("Tuple_list: ", tuple_list, "\n")
 
             for animal in tuple_list:
                 animal[1].final_position = animal[1].ant_position
@@ -133,9 +136,7 @@ class River:
 
     def update_ecosystem(self):
         print("Old ecosystem status :", self.ecosystem)
-
         new_ecosystem = [None] * self.n_room
-        print("New ecosystem empty :", new_ecosystem)
 
         for i in self.ecosystem:
             if i is not None:
@@ -143,12 +144,8 @@ class River:
                     new_ecosystem[i.final_position] = i
                 i.old_position = i.final_position
 
-        print("New ecosystem populated :", new_ecosystem)
-
         self.ecosystem = new_ecosystem
-
         print("New ecosystem status :", self.ecosystem, "\n")
-
         print("fish_spawn_counter: ", self.fish_spawn_counter)
         print("bear_spawn_counter: ", self.bear_spawn_counter)
 
@@ -162,7 +159,7 @@ class River:
 
         free_none_spots = len(none_index_list)
 
-        print("free_none_spots: ", free_none_spots)
+        print("free_none_spots: ", free_none_spots, "\n")
 
         for i in range(self.fish_spawn_counter):
             if free_none_spots > 0:
@@ -171,6 +168,7 @@ class River:
                 self.ecosystem[index_position].old_position = index_position
                 self.ecosystem[index_position].ant_position = index_position
                 self.ecosystem[index_position].final_position = index_position
+                print(self.ecosystem[index_position], "spawns in position", index_position, "\n")
 
                 none_index_list.remove(index_position)
             free_none_spots -= 1
@@ -182,6 +180,7 @@ class River:
                 self.ecosystem[index_position].old_position = index_position
                 self.ecosystem[index_position].ant_position = index_position
                 self.ecosystem[index_position].final_position = index_position
+                print(self.ecosystem[index_position], "spawns in position", index_position, "\n")
 
                 none_index_list.remove(index_position)
             free_none_spots -= 1
